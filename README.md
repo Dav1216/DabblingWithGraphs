@@ -8,7 +8,7 @@ The program uses the GraphStream library to generate and visualize graphs.
 * GraphStream library
 
 # Instalation
-1. Clone the repository: git clone https://github.com/yourusername/graph-algorithms.git
+1. Clone the repository: https://github.com/Dav1216/DabblingWithGraphs.git
 2. Import the project into your preferred Java IDE.
 
 # Usage
