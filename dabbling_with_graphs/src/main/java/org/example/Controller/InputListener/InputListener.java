@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
  *  @author David Nistor
  */
 public class InputListener implements Runnable {
-        private boolean listening = true;
-        private final ShortestPath callbackDijsktra;
-        private final MST callbackMST;
+    private boolean listening = true;
+    private final ShortestPath callbackDijsktra;
+    private final MST callbackMST;
 
     /**
      * Creates a new InputListener object.
@@ -29,29 +29,30 @@ public class InputListener implements Runnable {
      * inputs and adapts based behaviour based on these inputs while {@code listening == true}.
      */
     @Override
-        public void run() {
-        Scanner scanner = new Scanner(System.in);
-            while (listening) {
-                if (scanner.hasNextLine()) {
-                    char selection = scanner.nextLine().charAt(0);
-                    if(selection == 'p') {
-                        System.out.println("Input something of the form \"Node0 - Node5\"");
-                        String stringInput = scanner.nextLine();
-                        try {
-                            List<String> parsedInput = parseInput(stringInput);
-                            callbackDijsktra.compute(parsedInput.get(0), parsedInput.get(1));
-                        } catch (IllegalArgumentException e) {
-                            System.out.println("Your input is not valid, input \"p\" and try again with existing ones");
-                        }
-                    } else if(selection == 'm') {
-                        callbackMST.show();
-                    } else {
-                        System.out.println("No recognizable command, please try again..");
-                    }
+    public void run() {
+        System.out.println("Enter \"p\" if you would want to calculate the shortest " +
+                "path between two nodes or \"m\" calculate a minimum spanning tree on the generated weighted graph");
+        System.out.println("You can call \"p\" or \"m\" multiple times");
+        Scanner sc = new Scanner(System.in);
+        while (listening) {
+            char selection = sc.nextLine().charAt(0);
+            if (selection == 'p') {
+                System.out.println("Input something of the form \"Node0 - Node5\"");
+                String stringInput = sc.nextLine();
+                try {
+                    List<String> parsedInput = parseInput(stringInput);
+                    callbackDijsktra.compute(parsedInput.get(0), parsedInput.get(1));
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Your input is not valid, input \"p\" and try again with existing ones");
                 }
+            } else if (selection == 'm') {
+                callbackMST.show();
+            } else {
+                System.out.println("No recognizable command, please try again..");
             }
-            scanner.close();
         }
+        sc.close();
+    }
 
     /**
      * Sets the {@code listening} boolean to false.

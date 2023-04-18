@@ -26,10 +26,6 @@ public class ClientCode implements ShortestPath, MST {
         theModel = new TheGraphModel();
         theView = new MyView(theModel.getTheGraph());
 
-        System.out.println("Enter \"p\" if you would want to calculate the shortest " +
-                "path between two nodes or \"m\" calculate a minimum spanning tree on the generated weighted graph");
-        System.out.println("You can call \"p\" or \"m\" multiple times");
-
         (new Thread(new InputListener(this))).start();
     }
 

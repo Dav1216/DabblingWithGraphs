@@ -61,7 +61,6 @@ public class TheGraphModel {
                 generator = new RandomGraphGenerator();
             }
         }
-        sc.close();
         return generator;
     }
 
