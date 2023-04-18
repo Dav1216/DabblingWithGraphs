@@ -19,8 +19,7 @@ import java.util.*;
  */
 public class TheGraphModel {
     private Graph theGraph;
-    private List<Node> nodes;
-    private Map<Node, NodeForDijkstra> mappingFunction;
+    private final Map<Node, NodeForDijkstra> mappingFunction;
 
     /**
      * Constructs the {@code TheGraphModel} object.
@@ -34,41 +33,36 @@ public class TheGraphModel {
      * Initializes {@code TheGraphModel} object.
      */
     private void initializeTheModel(){
-
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Choose the number of nodes: random or user input");
-        System.out.println("\"r\" for random, \"i\" for input");
-        AbstractTemplateGenerator generator;
-        char input = sc.next().charAt(0);
-
-        generator = new RandomGraphGenerator();
-
-        if (input == 'i') {
-            generator = new UserInputGenerator();
-        } else if (input == 'r') {
-
-        } else {
-            initializeTheModel();
-        }
-
+        AbstractTemplateGenerator generator = getTemplate();
         theGraph = generator.generateGraph("TheGameGraph");
-        nodes = generator.getTheNodes();
         Map<Node, Map<Node, Integer>> adjacentNodes = generator.getEdgesEachNode();
 
-        nodes.stream().forEach(node -> mappingFunction.put(node, new NodeForDijkstra(node.getId(), node)));
-        nodes.stream().forEach(node ->
-                {
-                adjacentNodes.get(node).keySet().stream()
-                        .forEach(adjacentNode ->
-                                {
-                                    myNode(node)
-                                        .addAdjacentNodes(
-                                            myNode(adjacentNode),
-                                                adjacentNodes.get(node).get(adjacentNode));
+        theGraph.nodes().forEach(node -> mappingFunction.put(node, new NodeForDijkstra(node.getId(), node)));
+        theGraph.nodes().forEach(node -> {
+            Map<Node, Integer> nodeMap = adjacentNodes.get(node);
+            Set<Node> nodes = nodeMap.keySet();
+            nodes.forEach(adjacentNode -> {
+                Integer weight = nodeMap.get(adjacentNode);
+                myNode(node).addAdjacentNodes(myNode(adjacentNode), weight);
+            });
+        });
+    }
 
-                                }
-                                );
-                });
+    private AbstractTemplateGenerator getTemplate(){
+        Scanner sc = new Scanner(System.in);
+        AbstractTemplateGenerator generator = null;
+        while (generator == null) {
+            System.out.println("Choose the number of nodes: random or user input");
+            System.out.println("\"r\" for random, \"i\" for input");
+            char input = sc.next().charAt(0);
+            if (input == 'i') {
+                generator = new UserInputGenerator();
+            } else if (input == 'r') {
+                generator = new RandomGraphGenerator();
+            }
+        }
+        sc.close();
+        return generator;
     }
 
     /**
@@ -101,15 +95,6 @@ public class TheGraphModel {
     }
 
     /**
-     * Gets the nodes of {@code theGraph}.
-     *
-     * @return {@nodes} the list of nodes of {@code theGraph}
-     */
-    public List<Node> getNodes() {
-        return nodes;
-    }
-
-    /**
      * Gets the shortest path to a node {@code node}.
      *
      * @param node the node the path ends in
@@ -119,17 +104,11 @@ public class TheGraphModel {
 
         List<NodeForDijkstra> list1 = mappingFunction.get(node).getShortestPathToNode();
         List<Node> shortestPath = new ArrayList<>();
-        list1.stream().forEach(nodeInPath -> shortestPath.add(nodeInPath.getNode()));
+        list1.forEach(nodeInPath -> shortestPath.add(nodeInPath.getNode()));
 
         return shortestPath;
     }
 
-//    public Map<Node, Integer> getAdjacentNodes(Node node) {
-//        Map<Node, Integer> result = new HashMap<>();
-//        myNode(node).getAdjacentNodes().keySet().stream().forEach(n ->
-//                result.put(n.getNode(), myNode(node).getAdjacentNodes().get(n)));
-//        return result;
-//    }
 
     /**
      * Calculates the shortest path from {@code source} node to {@code target} node.
@@ -140,9 +119,8 @@ public class TheGraphModel {
      */
     public List<Node> calculateShortestPath(Node source, Node target) {
         calculateShortestFromSource(source);
-        List<Node> shortestPath = getShortestPathToNode(target);
+        return getShortestPathToNode(target);
 
-        return shortestPath;
     }
 
     /**
@@ -151,9 +129,7 @@ public class TheGraphModel {
      * @return {@code minSTree} the list of edges in the MST
      */
     public List<Edge> calculateMST() {
-        KruskalMinimumSpanningTree kmst = new KruskalMinimumSpanningTree(nodes.size(), theGraph);
-        List<Edge> minSTree = kmst.calculateMST();
-
-        return minSTree;
+        KruskalMinimumSpanningTree kmst = new KruskalMinimumSpanningTree(theGraph.getNodeCount(), theGraph);
+        return kmst.calculateMST();
     }
  }

@@ -5,12 +5,12 @@ package org.example.Controller.InputListener;
  *
  * @author David Nistor
  */
-public interface InputListenerCallbackDijsktra {
+public interface ShortestPath {
     /**
      * Is called by {@code InputListener} object after receiving input.
      *
      * @param inputDetected1 the first input
      * @param inputDetected2 the second input
      */
-    public abstract void inputWasDetected(String inputDetected1, String inputDetected2);
+    void compute(String inputDetected1, String inputDetected2);
 }

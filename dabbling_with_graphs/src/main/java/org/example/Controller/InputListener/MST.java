@@ -5,10 +5,10 @@ package org.example.Controller.InputListener;
  *
  * @author David Nistor
  */
-public interface InputListenerCallbackMST {
+public interface MST {
 
     /**
      * Is called by {@code InputListener} object after receiving input.
      */
-    public abstract void inputWasDetected();
+    void show();
 }
