@@ -16,6 +16,7 @@ public class UserInputGenerator extends AbstractTemplateGenerator {
         int sizeOfGraph = sc.nextInt();
 
         if (!(sizeOfGraph >= 10 && sizeOfGraph <= 20)) {
+            System.out.println("Invalid input!!!");
             getSizeOfGraph();
         }
 

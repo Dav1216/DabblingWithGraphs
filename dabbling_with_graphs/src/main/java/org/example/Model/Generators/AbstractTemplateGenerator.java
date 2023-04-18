@@ -6,6 +6,7 @@ import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Abstract template class that defines skeleton the creation of a graph.
@@ -13,12 +14,7 @@ import java.util.*;
  * @author David Nistor
  */
 public abstract class AbstractTemplateGenerator {
-    private List<Node> theNodes;
     private Map<Node, Map<Node, Integer>> adjacentNodes;
-
-    public List<Node> getTheNodes() {
-        return theNodes;
-    }
 
     public Map<Node, Map<Node, Integer>> getEdgesEachNode() {
         return adjacentNodes;
@@ -31,21 +27,15 @@ public abstract class AbstractTemplateGenerator {
      * @return {@code graph} the generated graph
      */
     public Graph generateGraph(String name) {
-
         Graph graph = new SingleGraph(name);
         Random random = new Random();
         adjacentNodes = new HashMap<>();
-
         int sizeOfGraph = getSizeOfGraph();
-
-        theNodes = createNodes(graph, sizeOfGraph);
-
-        // initialize each node's edges
-        theNodes.stream().forEach(node -> adjacentNodes.put(node, new HashMap<>()));
-        // generate random edges for each node
-        theNodes.stream().forEach(node ->
-                createEdgesForNode(node, graph, random, sizeOfGraph, theNodes));
-
+        createNodes(graph, sizeOfGraph);
+        // initialize each node's edges and generate random edges for each node
+        List<Node> nodes = graph.nodes().collect(Collectors.toList());
+        nodes.forEach(node -> adjacentNodes.put(node, new HashMap<>()));
+        nodes.forEach(node -> createEdgesForNode(node, graph, random, sizeOfGraph, nodes));
         return graph;
     }
 
@@ -54,18 +44,11 @@ public abstract class AbstractTemplateGenerator {
      *
      * @param graph the graph
      * @param sizeOfGraph the wanted number of nodes in the graph
-     * @return {@code nodes} the list of nodes of the {@code graph}
      */
-    private List<Node> createNodes(Graph graph, int sizeOfGraph) {
-
-        List<Node> nodes = new ArrayList<>();
-
+    private void createNodes(Graph graph, int sizeOfGraph) {
         for(int i = 0; i < sizeOfGraph; ++i) {
-            String nodeName = "Node" + i;
-            nodes.add(graph.addNode(nodeName));
+            graph.addNode("Node" + i);
         }
-
-        return nodes;
     }
 
     /**
@@ -83,17 +66,14 @@ public abstract class AbstractTemplateGenerator {
                                    int sizeOfGraph,
                                    List<Node> nodes) {
 
-        List<Node> availableNodes = new ArrayList<>();
-        nodes.stream().forEach(availableNodes::add);
+        List<Node> availableNodes = new ArrayList<>(nodes);
         availableNodes.remove(node);
 
         int theNumberOfEdges = random.nextInt(0, sizeOfGraph / 3);
 
         for(int i = 0; i < theNumberOfEdges; i++) {
 
-            Node toWhichNode = availableNodes.get(
-                    random.nextInt(availableNodes.size())
-            );
+            Node toWhichNode = availableNodes.get(random.nextInt(availableNodes.size()));
 
             String nameOfEdge = "Edge" + node.getId() + toWhichNode.getId();
             String reverseEdgeName = "Edge" + toWhichNode.getId() + node.getId();
