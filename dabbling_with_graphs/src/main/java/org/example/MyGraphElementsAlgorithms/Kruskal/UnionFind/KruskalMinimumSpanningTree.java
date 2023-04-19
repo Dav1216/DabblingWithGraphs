@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
  *  @author David Nistor
  */
 public class KruskalMinimumSpanningTree {
-    private UnionFind unionFind;
-    private Graph theGraph;
+    private final UnionFind unionFind;
+    private final Graph theGraph;
     private List<Edge> sortedEdges;
 
     /**
@@ -37,24 +37,22 @@ public class KruskalMinimumSpanningTree {
      */
     private void initializeSortedEdges() {
         List<Edge> edgesResult = new ArrayList<>();
-        theGraph.edges().forEach(edge -> edgesResult.add(edge));
+        theGraph.edges().forEach(edgesResult::add);
         sortedEdges = sortEdges(edgesResult);
     }
 
     /**
      * Sort a list of edges by ascending edge weight.
      *
-     * @param edgesResult
+     * @param edgesResult the list to be sorted
      * @return {@code sortedEdges} the sorted list
      * @post {@code (\forall int edge; 0 <= edge && edge < sortedEdges.size() - 1
      * ;sortedEdges.get(edge).getAttribute("weight") <= sortedEdges.get(edge).getAttribute("weight")}
      */
     private List<Edge> sortEdges(List<Edge> edgesResult) {
-        List<Edge> sortedEdges =  edgesResult.stream()
+        return sortedEdges =  edgesResult.stream()
                 .sorted(Comparator.comparing(edge -> (int) edge.getAttribute("weight")))
                 .collect(Collectors.toList());
-
-        return sortedEdges;
     }
 
     /**
@@ -64,10 +62,9 @@ public class KruskalMinimumSpanningTree {
      * @return the edges in the minimum spanning tree
      */
     public List<Edge> calculateMST() {
-
         List<Edge> minimumSpanningTree = new ArrayList<>();
 
-        sortedEdges.stream().forEach(edge -> {
+        sortedEdges.forEach(edge -> {
             if(!unionFind.connected(getNrFromNode(edge.getNode0()), getNrFromNode(edge.getNode1()))) {
                 unionFind.unify(getNrFromNode(edge.getNode0()), getNrFromNode(edge.getNode1()));
                 minimumSpanningTree.add(edge);
@@ -78,7 +75,7 @@ public class KruskalMinimumSpanningTree {
     }
 
     /**
-     * Gets a number from the name of the input {@node} in order to be used in union find.
+     * Gets a number from the name of the input {@code node} in order to be used in union find.
      *
      * @param node the node
      * @return the unique number to be used in union find
@@ -86,6 +83,7 @@ public class KruskalMinimumSpanningTree {
     private int getNrFromNode(Node node) {
         String numberString = node.getId().replaceAll("\\D+","");
         int number = Integer.parseInt(numberString);
+
         return number;
     }
 }

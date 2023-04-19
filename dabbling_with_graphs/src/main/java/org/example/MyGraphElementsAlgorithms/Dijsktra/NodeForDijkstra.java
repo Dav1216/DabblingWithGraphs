@@ -13,7 +13,7 @@ public class NodeForDijkstra implements Comparable<NodeForDijkstra> {
     private final Node node;
     private final String name;
     private Integer distance = Integer.MAX_VALUE;
-    private Map<NodeForDijkstra, Integer> adjacentNodes;
+    private final Map<NodeForDijkstra, Integer> adjacentNodes;
     private List<NodeForDijkstra> shortestPathToNode;
 
     /**

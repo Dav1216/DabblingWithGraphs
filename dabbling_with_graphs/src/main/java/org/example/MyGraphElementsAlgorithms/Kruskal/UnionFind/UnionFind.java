@@ -17,7 +17,6 @@ public class UnionFind {
      * @param size the input size
      */
     public UnionFind(int size) {
-
         if(size < 0) {
             throw new IllegalArgumentException("Can't have size smaller than zero...");
         }
@@ -37,7 +36,7 @@ public class UnionFind {
      * Finds the union the number belongs to.
      *
      * @param p the number
-     * @return the {@root} of the union the number belongs to
+     * @return the {@code root} of the union the number belongs to
      */
     public int find(int p) {
         //find the root of the component set
@@ -102,7 +101,6 @@ public class UnionFind {
      * @param q the second number
      */
     public void unify(int p, int q) {
-
         int root1 = find(p);
         int root2 = find(q);
 
@@ -118,7 +116,6 @@ public class UnionFind {
             sizes[root1] += sizes[root2];
             inWhoseGroup[root2] = root1;
         }
-
         --numComponents;
     }
 }

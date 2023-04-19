@@ -4,7 +4,9 @@ import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.ui.swing_viewer.SwingViewer;
+
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Class that holds the view of the program.
@@ -12,19 +14,17 @@ import java.util.List;
  * @author David Nistor
  */
 public class MyView {
-    private Graph theGraph;
+    private final Graph theGraph;
 
     /**
      * Creates {@code MyView} object.
      * @param theGraph the graph
-     * @param nodes the list of nodes of the graph
      */
-    public MyView(Graph theGraph, List<Node> nodes) {
+    public MyView(Graph theGraph) {
         this.theGraph = theGraph;
-
-        setNodeLabels(nodes);
-        setEdgesLabels();
-        startGUI();
+        this.setNodeLabels(this.theGraph.nodes());
+        this.setEdgesLabels();
+        this.startGUI();
     }
 
     /**
@@ -45,7 +45,7 @@ public class MyView {
     public void showMST(List<Edge> minSTree) {
         System.out.println("The MST has been shown, it has been shown");
         resetGraphAppearence();
-        minSTree.stream().forEach(edge -> edge.setAttribute("ui.style", "fill-color: red;"));
+        minSTree.forEach(edge -> edge.setAttribute("ui.style", "fill-color: orange;"));
     }
 
     /**
@@ -54,30 +54,18 @@ public class MyView {
      * @param shortestPath the nodes in the shortest path
      * @param target the target node
      */
-    public void showShortestPath(List<Node> shortestPath, Node target) {
+    public void showShortestPath(List<Node> shortestPath, final Node target) {
         resetGraphAppearence();
         System.out.println("A path exists, it has been shown");
+        int size = shortestPath.size();
 
-        for(int i = 0; i < shortestPath.size(); ++i) {
-
-            if(i != shortestPath.size() - 1) {
-
-                Node node1 = shortestPath.get(i);
-                Node node2 = shortestPath.get(i + 1);
-
-                theGraph.edges().filter(edge -> (edge.getNode1() == node1 && edge.getNode0() == node2)
-                                || (edge.getNode0() == node1 && edge.getNode1() == node2))
-                        .findAny().ifPresent(edge -> edge.setAttribute("ui.style", "fill-color: red;"));
-            } else {
-
-                Node node1 = shortestPath.get(i);
-
-                theGraph.edges().filter(edge -> (edge.getNode1() == target && edge.getNode0() == node1)
-                                || (edge.getNode0() == target && edge.getNode1() == node1))
-                        .findAny().ifPresent(edge -> edge.setAttribute("ui.style", "fill-color: red;"));
-            }
+        for(int i = 0; i < size; ++i) {
+            Node node1 = shortestPath.get(i);
+            Node node2 = (i != size - 1) ? shortestPath.get(i + 1) : target;
+            theGraph.edges().filter(edge -> (edge.getNode1() == node1 && edge.getNode0() == node2)
+                            || (edge.getNode0() == node1 && edge.getNode1() == node2))
+                    .findAny().ifPresent(edge -> edge.setAttribute("ui.style", "fill-color: orange;"));
         }
-
     }
 
     /**
@@ -92,10 +80,8 @@ public class MyView {
      */
     private void setEdgesLabels() {
         theGraph.edges().forEach(edge -> {
-            edge.setAttribute("ui.label",
-                    "" +  edge.getAttribute("weight"));
-            edge.setAttribute("ui.style",
-                    "text-alignment: center; text-padding: 10; text-size: 20;text-offset: 10px, 0px;");
+            edge.setAttribute("ui.label",edge.getAttribute("weight").toString());
+            edge.setAttribute("ui.style","text-alignment: center; text-padding: 10; text-size: 20;text-offset: 10px, 0px;");
         });
     }
 
@@ -104,12 +90,11 @@ public class MyView {
      *
      * @param nodes the list of nodes
      */
-    private void setNodeLabels(List<Node> nodes) {
-        nodes.stream().forEach(
+    private void setNodeLabels(Stream<Node> nodes) {
+        nodes.forEach(
                 node -> {
                     node.setAttribute("ui.label", node.getId());
-                    node.setAttribute("ui.style",
-                            "text-alignment: right; text-padding: 10; text-size: 20;text-offset: 20px, 0px;");
+                    node.setAttribute("ui.style","text-alignment: right; text-padding: 10; text-size: 20;text-offset: 20px, 0px;");
                 }
         );
     }
