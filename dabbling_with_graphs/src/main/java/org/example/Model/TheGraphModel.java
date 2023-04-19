@@ -49,7 +49,7 @@ public class TheGraphModel {
     }
 
     /**
-     * Applies strategy design pattern, lets the user choose the straetegy at runtime.
+     * Applies strategy design pattern, lets the user choose the strategy at runtime.
      *
      * @return {@code generator} the generator
      */
