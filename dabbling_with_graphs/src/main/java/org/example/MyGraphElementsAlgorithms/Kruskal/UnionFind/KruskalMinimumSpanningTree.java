@@ -27,6 +27,7 @@ public class KruskalMinimumSpanningTree {
         this.unionFind = new UnionFind(numberNodes);
         this.theGraph = theGraph;
         initializeSortedEdges();
+
     }
 
     /**
