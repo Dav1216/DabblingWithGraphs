@@ -5,7 +5,7 @@ import org.graphstream.graph.Node;
 import java.util.*;
 
 /**
- * Acts as an adapter class for {@code org.graphstream.graph.Node} to be used by the {@code DijsktraGraphAlgo} class.
+ * Acts as a wrapper class for {@code org.graphstream.graph.Node} to be used by the {@code DijsktraGraphAlgo} class.
  *
  * @author David Nistor
  */
