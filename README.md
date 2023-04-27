@@ -4,8 +4,7 @@ This Java program allows users to input commands in the command line interface (
 The program uses the GraphStream library to generate and visualize graphs.
 
 # Requirements
-* Java 11 or higher
-* GraphStream library
+* Java 17 or higher
 
 # Instalation
 1. Clone the repository.
