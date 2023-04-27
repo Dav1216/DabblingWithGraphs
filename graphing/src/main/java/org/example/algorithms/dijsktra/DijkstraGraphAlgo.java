@@ -1,6 +1,4 @@
-package org.example.algorithms;
-
-import org.example.algorithms.NodeWrapper;
+package org.example.algorithms.dijsktra;
 
 import java.util.*;
 import java.util.stream.Stream;

@@ -76,7 +76,7 @@ public class MyView {
      */
     public void showBFS(List<List<Node>> layers) {
         resetGraphAppearence();
-        (new AnimationController(theGraph, layers)).startThread();
+        (new AnimationController(layers)).startThread();
     }
 
     /**
@@ -93,7 +93,8 @@ public class MyView {
     private void setEdgesLabels() {
         theGraph.edges().forEach(edge -> {
             edge.setAttribute("ui.label",edge.getAttribute("weight").toString());
-            edge.setAttribute("ui.style","text-alignment: center; text-padding: 10; text-size: 20;text-offset: 10px, 0px;");
+            edge.setAttribute("ui.style","text-alignment: center; " +
+                    "text-padding: 10; text-size: 20;text-offset: 10px, 0px;");
         });
     }
 
@@ -106,7 +107,8 @@ public class MyView {
         nodes.forEach(
                 node -> {
                     node.setAttribute("ui.label", node.getId());
-                    node.setAttribute("ui.style","text-alignment: right; text-padding: 10; text-size: 20;text-offset: 20px, 0px;");
+                    node.setAttribute("ui.style","text-alignment: right;" +
+                            " text-padding: 10; text-size: 20;text-offset: 20px, 0px;");
                 }
         );
     }

@@ -1,6 +1,5 @@
 package org.example.view.animation;
 
-import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 
 import java.util.List;
@@ -16,10 +15,9 @@ public class LayerColorer implements Runnable {
     /**
      * Creates a new {@code LayerColorer} object.
      *
-     * @param theGraph the graph
      * @param layers the layers
      */
-    public LayerColorer(Graph theGraph, List<List<Node>> layers) {
+    public LayerColorer(List<List<Node>> layers) {
         this.layers = layers;
     }
 
@@ -27,7 +25,7 @@ public class LayerColorer implements Runnable {
      * Paints the nodes in the {@code layer}.
      *
      * @param layer the list of nodes
-     * @param color the color
+     * @param color the desired color
      */
     private void paintLayer(List<Node> layer, String color){
         layer.forEach(node -> node.setAttribute("ui.style", "fill-color: " + color + ";"));
@@ -62,6 +60,9 @@ public class LayerColorer implements Runnable {
         paintLayer(layers.get(layers.size() - 1), "green");
     }
 
+    /**
+     * Method to be called to pause the current {@code Thread} execution.
+     */
     private void sleep() {
         try {
             Thread.sleep(4000);

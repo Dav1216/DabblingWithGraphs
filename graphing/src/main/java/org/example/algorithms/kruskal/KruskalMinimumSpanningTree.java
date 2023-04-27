@@ -1,6 +1,5 @@
-package org.example.algorithms;
+package org.example.algorithms.kruskal;
 
-import org.example.algorithms.UnionFind;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
@@ -83,8 +82,6 @@ public class KruskalMinimumSpanningTree {
      */
     private int getNrFromNode(Node node) {
         String numberString = node.getId().replaceAll("\\D+","");
-        int number = Integer.parseInt(numberString);
-
-        return number;
+        return Integer.parseInt(numberString);
     }
 }

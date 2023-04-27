@@ -6,6 +6,7 @@ package org.example.controller.inputlistener;
  * @author David Nistor
  */
 public interface BFS {
+
     /**
      * Is called by {@code InputListener} object after receiving input.
      *

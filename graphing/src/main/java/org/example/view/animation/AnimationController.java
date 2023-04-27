@@ -1,6 +1,5 @@
 package org.example.view.animation;
 
-import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 
 import java.util.List;
@@ -16,17 +15,15 @@ public class AnimationController {
     /**
      * Creates a new {@code AnimationController} object.
      *
-     * @param theGraph the graph
      * @param layers the layers
      */
-    public AnimationController(Graph theGraph, List<List<Node>> layers) {
-        thread = new Thread(new LayerColorer(theGraph, layers));
+    public AnimationController(List<List<Node>> layers) {
+        thread = new Thread(new LayerColorer( layers));
         System.out.println("Animation will begin shortly, look at the graph!");
     }
 
     /**
      * Starts the animation thread.
-     *
      */
     public void startThread() {
         try {

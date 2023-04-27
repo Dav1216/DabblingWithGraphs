@@ -1,4 +1,4 @@
-package org.example.algorithms;
+package org.example.algorithms.dijsktra;
 
 import org.graphstream.graph.Node;
 
@@ -17,7 +17,7 @@ public class NodeWrapper implements Comparable<NodeWrapper> {
     private List<NodeWrapper> shortestPathToNode;
 
     /**
-     * Creates a new NodeWrapper object.
+     * Creates a new {@code NodeWrapper} object.
      *
      * @param name the name of the object
      * @param node the {@code org.graphstream.graph.Node} of the object

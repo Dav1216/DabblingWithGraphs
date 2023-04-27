@@ -1,4 +1,4 @@
-package org.example.algorithms;
+package org.example.algorithms.kruskal;
 
 /**
  * Holds the Union find data structure, works with ints, objects need separate mapping to int.
