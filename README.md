@@ -1,14 +1,14 @@
 # DabblingWithGraphs
-This Java program allows users to input commands in the command line interface (CLI) to generate and analyze graphs. The program offers two options: generating a random number of nodes graph or inputting a number of nodes. After selecting one of the options, the user can choose between computing the Minimum Spanning Tree (MST) of the graph or the shortest path between two input nodes using Dijkstra's algorithm.
+This Java program allows users to input commands in the command line interface (CLI) to generate and analyze graphs. The program offers two options: generating a random number of nodes graph or inputting a number of nodes. After selecting one of the options, the user can choose between computing the Minimum Spanning Tree (MST) of the graph, the shortest path between two input nodes using Dijkstra's algorithm or to compute the BFS.
 
 The program uses the GraphStream library to generate and visualize graphs.
 
 # Requirements
-* Java 8 or higher
+* Java 11 or higher
 * GraphStream library
 
 # Instalation
-1. Clone the repository: https://github.com/Dav1216/DabblingWithGraphs.git
+1. Clone the repository.
 2. Import the project into your preferred Java IDE.
 
 # Usage
@@ -16,6 +16,7 @@ The program uses the GraphStream library to generate and visualize graphs.
 2. Follow the prompts to select a graph type and analysis method.
 3. If generating a graph with user input, enter the number of nodes when prompted.
 4. If analyzing shortest paths, enter two nodes to find the shortest path between them.
+5. If generating a BFS animation, enter the source node when prompted.
 
 # Design Patterns Used
 * Template Method: The AbstractTemplateGenerator class defines the overall structure of the graph generation algorithm and delegates getSizeOfGraph hook method to be implemented by the subclasses.
