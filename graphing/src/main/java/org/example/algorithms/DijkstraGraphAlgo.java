@@ -1,4 +1,6 @@
-package org.example.MyGraphElementsAlgorithms.Dijsktra;
+package org.example.algorithms;
+
+import org.example.algorithms.NodeWrapper;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -10,18 +12,18 @@ import java.util.stream.Stream;
  */
 public class DijkstraGraphAlgo {
     /**
-     * Calculate the shortest path of each {@code NodeForDijkstra} node of the connected graph that includes
-     * {@code NodeForDijkstra} sourceNode.
+     * Calculate the shortest path of each {@code NodeWrapper} node of the connected graph that includes
+     * {@code NodeWrapper} sourceNode.
      *
-     * @param sourceNode the source {@code NodeForDijkstra} node
+     * @param sourceNode the source {@code NodeWrapper} node
      */
-    public void calculateShortestPath(NodeForDijkstra sourceNode) {
+    public void calculateShortestPath(NodeWrapper sourceNode) {
         sourceNode.setDistance(0);
-        Set<NodeForDijkstra> settledNodes = new HashSet<>();
-        Queue<NodeForDijkstra> unsettledNodes = new PriorityQueue<>(Collections.singleton(sourceNode));
+        Set<NodeWrapper> settledNodes = new HashSet<>();
+        Queue<NodeWrapper> unsettledNodes = new PriorityQueue<>(Collections.singleton(sourceNode));
 
         while(!unsettledNodes.isEmpty()) {
-            NodeForDijkstra currentNode = unsettledNodes.poll();
+            NodeWrapper currentNode = unsettledNodes.poll();
 
             currentNode.getAdjacentNodes().entrySet().stream().filter(nodeIntegerEntry ->
                     !settledNodes.contains(nodeIntegerEntry.getKey()))
@@ -37,11 +39,11 @@ public class DijkstraGraphAlgo {
     /**
      * Decides whether to include an edge in the shortest path to a node.
      *
-     * @param adjacentNode the target {@code NodeForDijkstra} adjacentNode
+     * @param adjacentNode the target {@code NodeWrapper} adjacentNode
      * @param edgeWeight the weight between the {@code sourceNode} and {@code adjacentNode}
-     * @param sourceNode the source {@code NodeForDijkstra} node
+     * @param sourceNode the source {@code NodeWrapper} node
      */
-    private void evaluateDistanceAndPath(NodeForDijkstra adjacentNode, Integer edgeWeight, NodeForDijkstra sourceNode) {
+    private void evaluateDistanceAndPath(NodeWrapper adjacentNode, Integer edgeWeight, NodeWrapper sourceNode) {
         Integer newDistance = sourceNode.getDistance() + edgeWeight;
 
         if(newDistance < adjacentNode.getDistance()) {

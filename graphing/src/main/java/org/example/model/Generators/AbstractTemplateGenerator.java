@@ -1,4 +1,4 @@
-package org.example.Model.Generators;
+package org.example.model.Generators;
 
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;

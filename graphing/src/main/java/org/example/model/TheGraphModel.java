@@ -1,12 +1,12 @@
-package org.example.Model;
+package org.example.model;
 
-import org.example.Model.Generators.AbstractTemplateGenerator;
-import org.example.Model.Generators.RandomGraphGenerator;
-import org.example.Model.Generators.UserInputGenerator;
-import org.example.MyGraphElementsAlgorithms.Dijsktra.DijkstraGraphAlgo;
-import org.example.MyGraphElementsAlgorithms.Dijsktra.NodeForDijkstra;
-import org.example.MyGraphElementsAlgorithms.Kruskal.UnionFind.KruskalMinimumSpanningTree;
-import org.example.MyGraphElementsAlgorithms.breadth_first_search.BreadthFirstSearch;
+import org.example.model.Generators.AbstractTemplateGenerator;
+import org.example.model.Generators.RandomGraphGenerator;
+import org.example.model.Generators.UserInputGenerator;
+import org.example.algorithms.DijkstraGraphAlgo;
+import org.example.algorithms.NodeWrapper;
+import org.example.algorithms.KruskalMinimumSpanningTree;
+import org.example.algorithms.BreadthFirstSearch;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
@@ -20,7 +20,7 @@ import java.util.*;
  */
 public class TheGraphModel {
     private Graph theGraph;
-    private final Map<Node, NodeForDijkstra> mappingFunction;
+    private final Map<Node, NodeWrapper> mappingFunction;
 
     /**
      * Constructs the {@code TheGraphModel} object.
@@ -38,7 +38,7 @@ public class TheGraphModel {
         theGraph = generator.generateGraph("TheGameGraph");
         Map<Node, Map<Node, Integer>> adjacentNodes = generator.getEdgesEachNode();
 
-        theGraph.nodes().forEach(node -> mappingFunction.put(node, new NodeForDijkstra(node.getId(), node)));
+        theGraph.nodes().forEach(node -> mappingFunction.put(node, new NodeWrapper(node.getId(), node)));
         theGraph.nodes().forEach(node -> {
             Map<Node, Integer> nodeMap = adjacentNodes.get(node);
             Set<Node> nodes = nodeMap.keySet();
@@ -73,12 +73,12 @@ public class TheGraphModel {
     }
 
     /**
-     * Gets the corresponding {@code NodeForDijkstra} node object from the {@code org.graphstream.graph.Node node}.
+     * Gets the corresponding {@code NodeWrapper} node object from the {@code org.graphstream.graph.Node node}.
      *
      * @param node the {@code org.graphstream.graph.Node node}
-     * @return {@code NodeForDijkstra} corresponding node
+     * @return {@code NodeWrapper} corresponding node
      */
-    private NodeForDijkstra myNode(Node node) {
+    private NodeWrapper myNode(Node node) {
         return mappingFunction.get(node);
     }
 
@@ -109,7 +109,7 @@ public class TheGraphModel {
      */
     private List<Node> getShortestPathToNode(Node node) {
 
-        List<NodeForDijkstra> list1 = mappingFunction.get(node).getShortestPathToNode();
+        List<NodeWrapper> list1 = mappingFunction.get(node).getShortestPathToNode();
         List<Node> shortestPath = new ArrayList<>();
         list1.forEach(nodeInPath -> shortestPath.add(nodeInPath.getNode()));
 

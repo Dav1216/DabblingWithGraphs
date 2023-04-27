@@ -1,6 +1,6 @@
-package org.example.View;
+package org.example.view;
 
-import org.example.View.Animation.AnimationController;
+import org.example.view.animation.AnimationController;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
@@ -76,12 +76,7 @@ public class MyView {
      */
     public void showBFS(List<List<Node>> layers) {
         resetGraphAppearence();
-
-        try {
-            (new AnimationController(theGraph, layers)).startThread();
-        } catch(InterruptedException e) {
-            System.out.println("Something went wrong with the animation");
-        }
+        (new AnimationController(theGraph, layers)).startThread();
     }
 
     /**

@@ -1,4 +1,4 @@
-package org.example.View.Animation;
+package org.example.view.animation;
 
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author David Nistor
  */
-public class AnimationController implements FinishedLayer {
+public class AnimationController {
     private final Thread thread;
 
     /**
@@ -20,27 +20,22 @@ public class AnimationController implements FinishedLayer {
      * @param layers the layers
      */
     public AnimationController(Graph theGraph, List<List<Node>> layers) {
-        thread = new Thread(new LayerColorer(theGraph, layers, this));
+        thread = new Thread(new LayerColorer(theGraph, layers));
         System.out.println("Animation will begin shortly, look at the graph!");
     }
 
     /**
      * Starts the animation thread.
      *
-     * @throws InterruptedException
      */
-    public void startThread() throws InterruptedException {
-        thread.sleep(3000);
+    public void startThread() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         thread.start();
     }
 
-    /**
-     * Implements callback method from {@code FinishedLayer} interface.
-     *
-     * @throws InterruptedException
-     */
-    @Override
-    public void done() throws InterruptedException {
-        thread.sleep(4000);
-    }
+
 }

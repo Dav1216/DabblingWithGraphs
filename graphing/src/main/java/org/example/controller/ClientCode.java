@@ -1,11 +1,11 @@
-package org.example.Controller;
+package org.example.controller;
 
-import org.example.Controller.InputListener.BFS;
-import org.example.Controller.InputListener.InputListener;
-import org.example.Controller.InputListener.ShortestPath;
-import org.example.Controller.InputListener.MST;
-import org.example.Model.TheGraphModel;
-import org.example.View.MyView;
+import org.example.controller.inputlistener.BFS;
+import org.example.controller.inputlistener.InputListener;
+import org.example.controller.inputlistener.ShortestPath;
+import org.example.controller.inputlistener.MST;
+import org.example.model.TheGraphModel;
+import org.example.view.MyView;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 

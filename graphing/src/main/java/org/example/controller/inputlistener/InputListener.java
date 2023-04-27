@@ -1,4 +1,4 @@
-package org.example.Controller.InputListener;
+package org.example.controller.inputlistener;
 
 import java.util.Arrays;
 import java.util.List;

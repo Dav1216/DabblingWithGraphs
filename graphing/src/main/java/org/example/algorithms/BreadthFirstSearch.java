@@ -1,4 +1,4 @@
-package org.example.MyGraphElementsAlgorithms.breadth_first_search;
+package org.example.algorithms;
 
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;

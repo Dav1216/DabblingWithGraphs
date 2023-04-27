@@ -1,4 +1,4 @@
-package org.example.MyGraphElementsAlgorithms.Kruskal.UnionFind;
+package org.example.algorithms;
 
 /**
  * Holds the Union find data structure, works with ints, objects need separate mapping to int.

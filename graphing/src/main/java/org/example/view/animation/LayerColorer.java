@@ -1,4 +1,4 @@
-package org.example.View.Animation;
+package org.example.view.animation;
 
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
@@ -12,42 +12,25 @@ import java.util.List;
  */
 public class LayerColorer implements Runnable {
     private final List<List<Node>> layers;
-    private final FinishedLayer listener;
 
     /**
      * Creates a new {@code LayerColorer} object.
      *
      * @param theGraph the graph
      * @param layers the layers
-     * @param listener the listener
      */
-    public LayerColorer(Graph theGraph, List<List<Node>> layers, FinishedLayer listener) {
+    public LayerColorer(Graph theGraph, List<List<Node>> layers) {
         this.layers = layers;
-        this.listener = listener;
     }
 
     /**
      * Paints the nodes in the {@code layer}.
      *
      * @param layer the list of nodes
-     * @throws InterruptedException
+     * @param color the color
      */
-    private void paintLayer(List<Node> layer, List<Node> previousLayer) throws InterruptedException {
-        layer.forEach(node -> node.setAttribute("ui.style", "fill-color: orange;"));
-//        paintEdges(layer,previousLayer);
-        paintPreviousLayer(previousLayer);
-        listener.done();
-    }
-
-    /**
-     * Paints the nodes in the {@code previousLayer}.
-     *
-     * @param previousLayer the list of nodes
-     */
-    private void paintPreviousLayer(List<Node> previousLayer) {
-        if(previousLayer != null) {
-            previousLayer.forEach(node -> node.setAttribute("ui.style", "fill-color: green;"));
-        }
+    private void paintLayer(List<Node> layer, String color){
+        layer.forEach(node -> node.setAttribute("ui.style", "fill-color: " + color + ";"));
     }
 
 //    /**
@@ -69,18 +52,21 @@ public class LayerColorer implements Runnable {
      */
     @Override
     public void run() {
-        List<Node> previousLayer = null;
-
         for(int i = 0; i < layers.size(); ++i) {
-
-            try {
-                paintLayer(layers.get(i), previousLayer);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            if(i > 0){
+                paintLayer(layers.get(i - 1), "green");
             }
-            previousLayer = layers.get(i);
+            paintLayer(layers.get(i), "orange");
+            sleep();
         }
+        paintLayer(layers.get(layers.size() - 1), "green");
+    }
 
-        paintPreviousLayer(layers.get(layers.size() - 1));
+    private void sleep() {
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

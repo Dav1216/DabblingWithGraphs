@@ -1,4 +1,4 @@
-package org.example.MyGraphElementsAlgorithms.Dijsktra;
+package org.example.algorithms;
 
 import org.graphstream.graph.Node;
 
@@ -9,20 +9,20 @@ import java.util.*;
  *
  * @author David Nistor
  */
-public class NodeForDijkstra implements Comparable<NodeForDijkstra> {
+public class NodeWrapper implements Comparable<NodeWrapper> {
     private final Node node;
     private final String name;
     private Integer distance = Integer.MAX_VALUE;
-    private final Map<NodeForDijkstra, Integer> adjacentNodes;
-    private List<NodeForDijkstra> shortestPathToNode;
+    private final Map<NodeWrapper, Integer> adjacentNodes;
+    private List<NodeWrapper> shortestPathToNode;
 
     /**
-     * Creates a new NodeForDijkstra object.
+     * Creates a new NodeWrapper object.
      *
      * @param name the name of the object
      * @param node the {@code org.graphstream.graph.Node} of the object
      */
-    public NodeForDijkstra(String name, Node node) {
+    public NodeWrapper(String name, Node node) {
         this.node = node;
         this.name = name;
         this.adjacentNodes = new HashMap<>();
@@ -33,10 +33,10 @@ public class NodeForDijkstra implements Comparable<NodeForDijkstra> {
      * Add an {@code adjacentNode} to the adjacentNodes list.
      *
      * @modifies adjacentNodes
-     * @param adjacentNode the {@code NodeForDijkstra} object
-     * @param weight the weight from {@code this} to the {@code NodeForDijkstra} object
+     * @param adjacentNode the {@code NodeWrapper} object
+     * @param weight the weight from {@code this} to the {@code NodeWrapper} object
      */
-    public void addAdjacentNodes(NodeForDijkstra adjacentNode, int weight) {
+    public void addAdjacentNodes(NodeWrapper adjacentNode, int weight) {
         adjacentNodes.put(adjacentNode, weight);
     }
 
@@ -50,7 +50,7 @@ public class NodeForDijkstra implements Comparable<NodeForDijkstra> {
     }
 
     /**
-     * Gets the distance towards {@code this} from the {@code NodeForDijkstra} source node object.
+     * Gets the distance towards {@code this} from the {@code NodeWrapper} source node object.
      *
      * @return {@code distance} the distance to {@code this} object node
      */
@@ -59,25 +59,25 @@ public class NodeForDijkstra implements Comparable<NodeForDijkstra> {
     }
 
     /**
-     * Gets the adjacent {@code NodeForDijkstra} nodes of this object.
+     * Gets the adjacent {@code NodeWrapper} nodes of this object.
      *
-     * @return {@code adjacentNodes} the adjacent {@code NodeForDijkstra} nodes of this object.
+     * @return {@code adjacentNodes} the adjacent {@code NodeWrapper} nodes of this object.
      */
-    public Map<NodeForDijkstra, Integer> getAdjacentNodes() {
+    public Map<NodeWrapper, Integer> getAdjacentNodes() {
         return adjacentNodes;
     }
 
     /**
-     * Gets the shortest path of {@code NodeForDijkstra} nodes to this object node.
+     * Gets the shortest path of {@code NodeWrapper} nodes to this object node.
      *
-     * @return {@code shortestPathToNode} the path of {@code NodeForDijkstra} nodes
+     * @return {@code shortestPathToNode} the path of {@code NodeWrapper} nodes
      */
-    public List<NodeForDijkstra> getShortestPathToNode() {
+    public List<NodeWrapper> getShortestPathToNode() {
         return shortestPathToNode;
     }
 
     /**
-     * Sets the distance to this {@code NodeForDijkstra} object node.
+     * Sets the distance to this {@code NodeWrapper} object node.
      *
      * @param distance the distance
      */
@@ -86,11 +86,11 @@ public class NodeForDijkstra implements Comparable<NodeForDijkstra> {
     }
 
     /**
-     * Sets the shortest path of {@code NodeForDijkstra} nodes to this object.
+     * Sets the shortest path of {@code NodeWrapper} nodes to this object.
      *
      * @param shortestPathToNode the path of nodes
      */
-    public void setShortestPathToNode(List<NodeForDijkstra> shortestPathToNode) {
+    public void setShortestPathToNode(List<NodeWrapper> shortestPathToNode) {
         this.shortestPathToNode = shortestPathToNode;
     }
 
@@ -104,13 +104,13 @@ public class NodeForDijkstra implements Comparable<NodeForDijkstra> {
     }
 
     /**
-     * Implements compareTo method of the Comparable interface to allow the comparison of {@code NodeForDijkstra}
+     * Implements compareTo method of the Comparable interface to allow the comparison of {@code NodeWrapper}
      * nodes.
      *
-     * @param o the {@code NodeForDijkstra} object to be compared to.
+     * @param o the {@code NodeWrapper} object to be compared to.
      */
     @Override
-    public int compareTo(NodeForDijkstra o) {
+    public int compareTo(NodeWrapper o) {
         return Integer.compare(this.getDistance(), o.getDistance());
     }
 }
