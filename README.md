@@ -32,3 +32,8 @@ The program uses the GraphStream library to generate and visualize graphs.
 
 ## Snapshot of the BFS search after one step: the first node has been explored and its neighbours have been added to the queue:
 ![Snapshot of the BFS search](BFS.png)
+
+## Demonstration of BFS:
+![BFS search](BFS.gif)
+
+
