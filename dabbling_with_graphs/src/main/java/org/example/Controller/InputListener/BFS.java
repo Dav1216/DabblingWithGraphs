@@ -5,10 +5,11 @@ package org.example.Controller.InputListener;
  *
  * @author David Nistor
  */
-public interface MST {
-
+public interface BFS {
     /**
      * Is called by {@code InputListener} object after receiving input.
+     *
+     * @param sourceNode the input node name
      */
-     void show();
+    void calculate(String sourceNode);
 }

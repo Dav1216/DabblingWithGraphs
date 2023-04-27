@@ -6,6 +6,7 @@ import org.example.Model.Generators.UserInputGenerator;
 import org.example.MyGraphElementsAlgorithms.Dijsktra.DijkstraGraphAlgo;
 import org.example.MyGraphElementsAlgorithms.Dijsktra.NodeForDijkstra;
 import org.example.MyGraphElementsAlgorithms.Kruskal.UnionFind.KruskalMinimumSpanningTree;
+import org.example.MyGraphElementsAlgorithms.breadth_first_search.BreadthFirstSearch;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
@@ -138,5 +139,11 @@ public class TheGraphModel {
         KruskalMinimumSpanningTree kmst = new KruskalMinimumSpanningTree(theGraph.getNodeCount(), theGraph);
 
         return kmst.calculateMST();
+    }
+
+    public List<List<Node>> calculateBFS(Node node) {
+        BreadthFirstSearch bfs = new BreadthFirstSearch(theGraph);
+
+        return bfs.startBFS(node);
     }
  }

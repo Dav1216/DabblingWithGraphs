@@ -1,5 +1,6 @@
 package org.example.Controller;
 
+import org.example.Controller.InputListener.BFS;
 import org.example.Controller.InputListener.InputListener;
 import org.example.Controller.InputListener.ShortestPath;
 import org.example.Controller.InputListener.MST;
@@ -15,7 +16,7 @@ import java.util.List;
  *
  * @author David Nistor
  */
-public class ClientCode implements ShortestPath, MST {
+public class ClientCode implements ShortestPath, MST, BFS {
     private TheGraphModel theModel;
     private MyView theView;
 
@@ -31,7 +32,7 @@ public class ClientCode implements ShortestPath, MST {
     }
 
     /**
-     * Implements behaviour for when {@code this} is called as a {@code InputListenerCallbackDijsktra}
+     * Implements behaviour for when {@code this} is called as a {@code ShortestPath}
      * callback by the {@code InputListener} class: calculates and shows the shortest path between {@code source} node
      * and {@code target}.
      *
@@ -58,7 +59,7 @@ public class ClientCode implements ShortestPath, MST {
     }
 
     /**
-     * Implements behaviour for when {@code this} is called as a {@code InputListenerCallbackMST}
+     * Implements behaviour for when {@code this} is called as a {@code MST}
      * callback by the {@code InputListener} class: calculates and shows MST.
      */
     @Override
@@ -66,7 +67,26 @@ public class ClientCode implements ShortestPath, MST {
         theView.showMST(theModel.calculateMST());
     }
 
+    /**
+     * Implements behaviour for when {@code this} is called as a {@code BFS}
+     * callback by the {@code InputListener} class: calculates and shows BFS.
+     *
+     * @param sourceNode the input node name
+     */
+    @Override
+    public void calculate(String sourceNode) {
+        if(theModel.getTheGraph().getNode(sourceNode) != null) {
+            Graph theGraph = theModel.getTheGraph();
+            List<List<Node>> layers = theModel.calculateBFS(theGraph.getNode(sourceNode));
+            theView.showBFS(layers);
+        } else {
+            System.out.println("Please press \"b\" and enter an existing node");
+        }
+    }
+
     public static void main(String[] args) {
         (new ClientCode()).startGraphing();
     }
+
+
 }

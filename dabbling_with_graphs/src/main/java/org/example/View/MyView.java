@@ -1,5 +1,6 @@
 package org.example.View;
 
+import org.example.View.Animation.AnimationController;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
@@ -43,7 +44,7 @@ public class MyView {
      * @param minSTree the edges of the minimum spanning tree
      */
     public void showMST(List<Edge> minSTree) {
-        System.out.println("The MST has been shown, it has been shown");
+        System.out.println("The MST has been shown");
         resetGraphAppearence();
         minSTree.forEach(edge -> edge.setAttribute("ui.style", "fill-color: orange;"));
     }
@@ -69,9 +70,25 @@ public class MyView {
     }
 
     /**
+     * Plots sequentially the {@code layers} of the BFS.
+     *
+     * @param layers the layers of the BFS
+     */
+    public void showBFS(List<List<Node>> layers) {
+        resetGraphAppearence();
+
+        try {
+            (new AnimationController(theGraph, layers)).startThread();
+        } catch(InterruptedException e) {
+            System.out.println("Something went wrong with the animation");
+        }
+    }
+
+    /**
      * Resets the colors of the edges of the graph.
      */
     private void resetGraphAppearence() {
+        theGraph.nodes().forEach(node -> node.setAttribute("ui.style", "fill-color: black;"));
         theGraph.edges().forEach(edge -> edge.setAttribute("ui.style", "fill-color: black;"));
     }
 
@@ -98,5 +115,4 @@ public class MyView {
                 }
         );
     }
-
 }
