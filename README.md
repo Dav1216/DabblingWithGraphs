@@ -23,3 +23,17 @@ The program uses the GraphStream library to generate and visualize graphs.
 * Model-View-Controller (MVC): The program uses the MVC design pattern to separate concerns between the model (graph), user interface (CLI)/ controller (main program logic) and the view.
 * Strategy: The program lets the user choose the type of generator at runtime through CLI.
 
+## The shortest weighted path from Node0 to Node11:
+![Dijsktra path](Path.png)
+
+## The minimum spanning tree of the graph:
+![MST](MST.png)
+
+
+## Snapshot of the BFS search after one step: the first node has been explored and its neighbours have been added to the queue:
+![Snapshot of the BFS search](BFS.png)
+
+## Demonstration of BFS:
+![BFS search](BFS.gif)
+
+
