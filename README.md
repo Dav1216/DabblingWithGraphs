@@ -23,6 +23,8 @@ The program uses the GraphStream library to generate and visualize graphs.
 * Model-View-Controller (MVC): The program uses the MVC design pattern to separate concerns between the model (graph), user interface (CLI)/ controller (main program logic) and the view.
 * Strategy: The program lets the user choose the type of generator at runtime through CLI.
 
+# Demonstrations:
+
 ## The shortest weighted path from Node0 to Node11:
 ![Dijsktra path](graphing/docs/PATH.png)
 
