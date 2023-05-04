@@ -24,16 +24,15 @@ The program uses the GraphStream library to generate and visualize graphs.
 * Strategy: The program lets the user choose the type of generator at runtime through CLI.
 
 ## The shortest weighted path from Node0 to Node11:
-![Dijsktra path](Path.png)
+![Dijsktra path](graphing/docs/PATH.png)
 
 ## The minimum spanning tree of the graph:
-![MST](MST.png)
-
-
-## Snapshot of the BFS search after one step: the first node has been explored and its neighbours have been added to the queue:
-![Snapshot of the BFS search](BFS.png)
+![MST](graphing/docs/MST.png)
 
 ## Demonstration of BFS:
-![BFS search](BFS.gif)
+![BFS search](graphing/docs/BFS.gif)
+
+## Demonstration of DFS:
+![DFS search](graphing/docs/DFS.gif)
 
 
