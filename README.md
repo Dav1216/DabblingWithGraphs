@@ -1,5 +1,5 @@
 # DabblingWithGraphs
-This Java program serves as an educational program that allows users to input commands in the command line interface (CLI) to generate and analyze graphs. The program offers two options: generating a random number of nodes graph or inputting a number of nodes. After selecting one of the options, the user can choose between computing the Minimum Spanning Tree (MST) of the graph, the shortest path between two input nodes using Dijkstra's algorithm, or to compute the BFS or DFS.
+I made this Java program as an educational program that allows users to input commands in the command line interface (CLI) to generate and analyze graphs. The program offers two options: generating a random number of nodes graph or inputting a number of nodes. After selecting one of the options, the user can choose between computing the Minimum Spanning Tree (MST) of the graph, the shortest path between two input nodes using Dijkstra's algorithm, or to compute the BFS or DFS.
 
 The program uses the GraphStream library to visualize the graphs.
 
