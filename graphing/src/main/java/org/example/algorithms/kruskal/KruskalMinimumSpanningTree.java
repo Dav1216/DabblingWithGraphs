@@ -1,8 +1,8 @@
 package org.example.algorithms.kruskal;
 
+import org.example.services.MyServices;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
-import org.graphstream.graph.Node;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -27,7 +27,6 @@ public class KruskalMinimumSpanningTree {
         this.unionFind = new UnionFind(numberNodes);
         this.theGraph = theGraph;
         initializeSortedEdges();
-
     }
 
     /**
@@ -65,23 +64,12 @@ public class KruskalMinimumSpanningTree {
         List<Edge> minimumSpanningTree = new ArrayList<>();
 
         sortedEdges.forEach(edge -> {
-            if(!unionFind.connected(getNrFromNode(edge.getNode0()), getNrFromNode(edge.getNode1()))) {
-                unionFind.unify(getNrFromNode(edge.getNode0()), getNrFromNode(edge.getNode1()));
+            if(!unionFind.connected(MyServices.getNrFromNode(edge.getNode0()), MyServices.getNrFromNode(edge.getNode1()))) {
+                unionFind.unify(MyServices.getNrFromNode(edge.getNode0()), MyServices.getNrFromNode(edge.getNode1()));
                 minimumSpanningTree.add(edge);
             }
         });
 
         return minimumSpanningTree;
-    }
-
-    /**
-     * Gets a number from the name of the input {@code node} in order to be used in union find.
-     *
-     * @param node the node
-     * @return the unique number to be used in union find
-     */
-    private int getNrFromNode(Node node) {
-        String numberString = node.getId().replaceAll("\\D+","");
-        return Integer.parseInt(numberString);
     }
 }

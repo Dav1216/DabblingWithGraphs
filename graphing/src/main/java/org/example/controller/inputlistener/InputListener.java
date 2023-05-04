@@ -15,6 +15,8 @@ public class InputListener implements Runnable {
     private final ShortestPath callbackDijsktra;
     private final MST callbackMST;
     private final BFS callbackBFS;
+    private final DFS callbackDFS;
+    private final Scanner sc;
 
     /**
      * Creates a new InputListener object.
@@ -24,6 +26,8 @@ public class InputListener implements Runnable {
             this.callbackDijsktra = callback;
             this.callbackMST = (MST) callback;
             this.callbackBFS = (BFS) callback;
+            this.callbackDFS = (DFS) callback;
+            this.sc = new Scanner(System.in);
         }
 
     /**
@@ -33,38 +37,74 @@ public class InputListener implements Runnable {
     @Override
     public void run() {
         System.out.println("Enter \"p\" if you would want to calculate the shortest " +
-                "path between two nodes or \"m\" calculate a minimum spanning tree on the generated weighted graph, " +
-                "or \"b\" to animate a BFS for the graph");
-        System.out.println("You can call \"p\", \"m\" or \"b\" multiple times");
-        Scanner sc = new Scanner(System.in);
+                "path between two nodes, \"m\" to calculate a minimum spanning tree on the generated weighted graph, " +
+                  "\n" + " \"b\" to animate a BFS for the graph, or \"d\" to animate a DFS for the graph");
+        System.out.println("You can call \"p\", \"m\", \"b\" or \"d\" multiple times");
 
         while (listening) {
-            char selection = sc.nextLine().charAt(0);
+            String input = sc.nextLine();
 
-            if (selection == 'p') {
-                System.out.println("Input something of the form \"Node0 - Node5\"");
-                String stringInput = sc.nextLine();
+            if(input.length() > 0) {
+                char selection = input.charAt(0);
 
-                try {
-                    List<String> parsedInput = parseInput(stringInput);
-                    callbackDijsktra.compute(parsedInput.get(0), parsedInput.get(1));
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Your input is not valid, input \"p\" and try again with existing ones");
+                switch (selection) {
+                    case 'p' -> handlePSelection();
+                    case 'm' -> handleMSelection();
+                    case 'b' -> handleBSelection();
+                    case 'd' -> handleDSelection();
+                    default -> System.out.println("No recognizable command, please try again..");
                 }
-            } else if (selection == 'm') {
-                callbackMST.show();
-            } else if (selection == 'b') {
-                System.out.println("Input something of the form \"Node0\"");
-                String stringInput = sc.nextLine();
-
-                if(stringInput.matches("Node\\d") || stringInput.matches("Node\\d{1,2}")) {
-                    callbackBFS.calculate(stringInput);
-                } else {
-                    System.out.println("Your input is not valid, input \"b\" and try again with an existing node");
-                }
-            } else {
-                System.out.println("No recognizable command, please try again..");
             }
+        }
+    }
+
+    /**
+     * Method to handle the case when 'p' has been read by the {@code sc}.
+     */
+    private void handlePSelection() {
+        System.out.println("Input the source and target nodes; something of the form: \"Node0 - Node5\"");
+        String stringInput = sc.nextLine();
+
+        try {
+            List<String> parsedInput = parseInput(stringInput);
+            callbackDijsktra.compute(parsedInput.get(0), parsedInput.get(1));
+        } catch (IllegalArgumentException e) {
+            System.out.println("Your input is not valid, input \"p\" and try again with existing ones");
+        }
+    }
+
+    /**
+     * Method to handle the case when 'm' has been read by the {@code sc}.
+     */
+    private void handleMSelection() {
+        callbackMST.show();
+    }
+
+    /**
+     * Method to handle the case when 'b' has been read by the {@code sc}.
+     */
+    private void handleBSelection() {
+        System.out.println("Input the starting node; something of the form \"Node0\"");
+        String stringInput = sc.nextLine();
+
+        if(stringInput.matches("Node\\d") || stringInput.matches("Node\\d{1,2}")) {
+            callbackBFS.calculateBFS(stringInput);
+        } else {
+            System.out.println("Your input is not valid, input \"b\" and try again with an existing node");
+        }
+    }
+
+    /**
+     * Method to handle the case when 'd' has been read by the {@code sc}.
+     */
+    private void handleDSelection() {
+        System.out.println("Input the starting node; something of the form \"Node0\"");
+        String stringInput = sc.nextLine();
+
+        if(stringInput.matches("Node\\d") || stringInput.matches("Node\\d{1,2}")) {
+            callbackDFS.calculateDFS(stringInput);
+        } else {
+            System.out.println("Your input is not valid, input \"b\" and try again with an existing node");
         }
     }
 

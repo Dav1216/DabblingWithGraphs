@@ -11,7 +11,6 @@ import java.util.*;
  */
 public class NodeWrapper implements Comparable<NodeWrapper> {
     private final Node node;
-    private final String name;
     private Integer distance = Integer.MAX_VALUE;
     private final Map<NodeWrapper, Integer> adjacentNodes;
     private List<NodeWrapper> shortestPathToNode;
@@ -19,12 +18,10 @@ public class NodeWrapper implements Comparable<NodeWrapper> {
     /**
      * Creates a new {@code NodeWrapper} object.
      *
-     * @param name the name of the object
      * @param node the {@code org.graphstream.graph.Node} of the object
      */
-    public NodeWrapper(String name, Node node) {
+    public NodeWrapper(Node node) {
         this.node = node;
-        this.name = name;
         this.adjacentNodes = new HashMap<>();
         this.shortestPathToNode =  new ArrayList<>();
     }
@@ -92,15 +89,6 @@ public class NodeWrapper implements Comparable<NodeWrapper> {
      */
     public void setShortestPathToNode(List<NodeWrapper> shortestPathToNode) {
         this.shortestPathToNode = shortestPathToNode;
-    }
-
-    /**
-     * Gets the name of this object.
-     *
-     * @return {@code name} the name
-     */
-    public String getName() {
-        return name;
     }
 
     /**

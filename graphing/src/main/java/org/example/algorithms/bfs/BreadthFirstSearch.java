@@ -13,6 +13,7 @@ import java.util.*;
 public class BreadthFirstSearch {
     private Queue<Node> theQueue;
     private final Graph theGraph;
+    List<Node> allQueueHistory;
 
     /**
      * Creates a new {@code BreadthFirstSearch} object.
@@ -22,16 +23,15 @@ public class BreadthFirstSearch {
     public BreadthFirstSearch(Graph theGraph) {
         this.theGraph = theGraph;
         this.theQueue = new LinkedList<>();
+        this.allQueueHistory = new ArrayList<>();
     }
 
     /**
      * Executes the BFS algorithm.
      *
      * @param startingNode the starting node of the algorithm
-     * @return the list of layers of the BFS
      */
-    public List<List<Node>> startBFS(Node startingNode) {
-        List<Node> allQueueHistory = new ArrayList<>();
+    public void startBFS(Node startingNode) {
         theQueue.add(startingNode);
         allQueueHistory.add(startingNode);
 
@@ -51,17 +51,14 @@ public class BreadthFirstSearch {
                 }
             });
         }
-
-        return calculateLayers(allQueueHistory);
     }
 
     /**
      * Calculates the layers of the BFS.
      *
-     * @param allQueueHistory a list containing all BFS {@code theQueue} history
      * @return the list of layers of the BFS
      */
-    private List<List<Node>> calculateLayers(List<Node> allQueueHistory) {
+    public List<List<Node>> calculateLayers() {
         List<List<Node>> result = new ArrayList<>();
         List<Node> currentLayer = new ArrayList<>();
         currentLayer.add(allQueueHistory.get(0));
@@ -81,7 +78,6 @@ public class BreadthFirstSearch {
             if(nextCurrentLayer.size() != 0) {
                 result.add(nextCurrentLayer);
             }
-
             currentLayer = nextCurrentLayer;
         }
 

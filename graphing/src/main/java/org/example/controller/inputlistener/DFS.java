@@ -5,12 +5,12 @@ package org.example.controller.inputlistener;
  *
  * @author David Nistor
  */
-public interface BFS {
+public interface DFS {
 
     /**
      * Is called by {@code InputListener} object after receiving input.
      *
      * @param sourceNode the input node name
      */
-    void calculateBFS(String sourceNode);
+    void calculateDFS(String sourceNode);
 }

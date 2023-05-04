@@ -31,19 +31,6 @@ public class LayerColorer implements Runnable {
         layer.forEach(node -> node.setAttribute("ui.style", "fill-color: " + color + ";"));
     }
 
-//    /**
-//     * Paints the edges linking layers of nodes.
-//     */
-//    private void paintEdges(List<Node> layer, List<Node> previousLayer) {
-//        if(previousLayer != null) {
-//            previousLayer.forEach(node -> {
-//                node.edges().filter(edge -> (layer.contains(edge.getNode0()) ||
-//                        layer.contains(edge.getNode1()))).forEach(edge ->
-//                        edge.setAttribute("ui.style", "fill-color: orange;"));
-//            });
-//        }
-//    }
-
     /**
      * Defines the run behaviour for when the LayerColorer is called in a new thread, here for all layers of {@code Node}
      * objects in {@code layers}, it colors them sequentially.

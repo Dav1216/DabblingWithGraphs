@@ -15,10 +15,16 @@ public class AnimationController {
     /**
      * Creates a new {@code AnimationController} object.
      *
-     * @param layers the layers
+     * @param twoDimensionList the layers or paths
+     * @param numberOfNodes the number of nodes of the graph
      */
-    public AnimationController(List<List<Node>> layers) {
-        thread = new Thread(new LayerColorer( layers));
+    public AnimationController(List<List<Node>> twoDimensionList, long numberOfNodes) {
+        // if numberOfNodes == 0 then we want the BFS search
+        if (numberOfNodes > 0) {
+            thread = new Thread(new PathColorer(twoDimensionList, numberOfNodes));
+        } else {
+            thread = new Thread(new LayerColorer(twoDimensionList));
+        }
         System.out.println("Animation will begin shortly, look at the graph!");
     }
 
@@ -31,8 +37,7 @@ public class AnimationController {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         thread.start();
     }
-
-
 }

@@ -23,9 +23,9 @@ public class MyView {
      */
     public MyView(Graph theGraph) {
         this.theGraph = theGraph;
-        this.setNodeLabels(this.theGraph.nodes());
-        this.setEdgesLabels();
-        this.startGUI();
+        setNodeLabels(this.theGraph.nodes());
+        setEdgesLabels();
+        startGUI();
     }
 
     /**
@@ -33,6 +33,7 @@ public class MyView {
      */
     private void startGUI() {
         SwingViewer viewer = new SwingViewer(theGraph, SwingViewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
+
         viewer.enableAutoLayout();
         viewer.setCloseFramePolicy(SwingViewer.CloseFramePolicy.EXIT);
         viewer.addDefaultView(true);
@@ -76,11 +77,21 @@ public class MyView {
      */
     public void showBFS(List<List<Node>> layers) {
         resetGraphAppearence();
-        (new AnimationController(layers)).startThread();
+        (new AnimationController(layers, 0)).startThread();
     }
 
     /**
-     * Resets the colors of the edges of the graph.
+     * Plots sequentially the {@code paths} of the DFS.
+     *
+     * @param paths the paths of the DFS
+     */
+    public void showDFS(List<List<Node>> paths) {
+        resetGraphAppearence();
+        (new AnimationController(paths, theGraph.nodes().count())).startThread();
+    }
+
+    /**
+     * Resets the colors of the edges and nodes of the graph.
      */
     private void resetGraphAppearence() {
         theGraph.nodes().forEach(node -> node.setAttribute("ui.style", "fill-color: black;"));

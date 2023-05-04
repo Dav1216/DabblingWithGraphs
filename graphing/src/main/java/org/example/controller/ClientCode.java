@@ -1,9 +1,6 @@
 package org.example.controller;
 
-import org.example.controller.inputlistener.BFS;
-import org.example.controller.inputlistener.InputListener;
-import org.example.controller.inputlistener.ShortestPath;
-import org.example.controller.inputlistener.MST;
+import org.example.controller.inputlistener.*;
 import org.example.model.TheGraphModel;
 import org.example.view.MyView;
 import org.graphstream.graph.Graph;
@@ -16,7 +13,7 @@ import java.util.List;
  *
  * @author David Nistor
  */
-public class ClientCode implements ShortestPath, MST, BFS {
+public class ClientCode implements ShortestPath, MST, BFS, DFS {
     private TheGraphModel theModel;
     private MyView theView;
 
@@ -47,6 +44,7 @@ public class ClientCode implements ShortestPath, MST, BFS {
             System.out.println("These nodes do not exist, input \"p\" and try again with existing ones");
         } else {
             List<Node> shortestPath = theModel.calculateShortestPath(theGraph.getNode(source), theGraph.getNode(target));
+
             if(target.equals(source)) {
                 System.out.println("A path does not exist since the nodes are one in the same");
             } else if(shortestPath.isEmpty()) {
@@ -74,19 +72,36 @@ public class ClientCode implements ShortestPath, MST, BFS {
      * @param sourceNode the input node name
      */
     @Override
-    public void calculate(String sourceNode) {
+    public void calculateBFS(String sourceNode) {
         if(theModel.getTheGraph().getNode(sourceNode) != null) {
             Graph theGraph = theModel.getTheGraph();
             List<List<Node>> layers = theModel.calculateBFS(theGraph.getNode(sourceNode));
+
             theView.showBFS(layers);
         } else {
             System.out.println("Please press \"b\" and enter an existing node");
         }
     }
 
+    /**
+     * Implements behaviour for when {@code this} is called as a {@code DFS}
+     * callback by the {@code InputListener} class: calculates and shows DFS.
+     *
+     * @param sourceNode the input node name
+     */
+    @Override
+    public void calculateDFS(String sourceNode) {
+        if(theModel.getTheGraph().getNode(sourceNode) != null) {
+            Graph theGraph = theModel.getTheGraph();
+            List<List<Node>> paths = theModel.calculateDFS(theGraph.getNode(sourceNode));
+
+            theView.showDFS(paths);
+        } else {
+            System.out.println("Please press \"d\" and enter an existing node");
+        }
+    }
+
     public static void main(String[] args) {
         (new ClientCode()).startGraphing();
     }
-
-
 }
