@@ -33,7 +33,7 @@ The program uses the GraphStream library to visualize the graphs.
 ![MST](graphing/docs/MST.png)
 
 ## Demonstration of BFS starting at Node6:
-![BFS search](graphing/docs/BFS.gif)
+![BFS search](graphing/docs/BFS2.gif)
 
 ## Demonstration of DFS starting at Node6:
 ![DFS search](graphing/docs/DFS.gif)
