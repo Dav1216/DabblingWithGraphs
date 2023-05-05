@@ -26,16 +26,16 @@ The program uses the GraphStream library to visualize the graphs.
 
 # Demonstrations:
 
-## The shortest weighted path from Node0 to Node11:
+## The shortest weighted path from Node2 to Node3:
 ![Dijsktra path](graphing/docs/PATH.png)
 
 ## The minimum spanning tree of the graph:
 ![MST](graphing/docs/MST.png)
 
-## Demonstration of BFS:
+## Demonstration of BFS starting at Node6:
 ![BFS search](graphing/docs/BFS.gif)
 
-## Demonstration of DFS:
+## Demonstration of DFS starting at Node6:
 ![DFS search](graphing/docs/DFS.gif)
 
 
