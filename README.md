@@ -38,9 +38,9 @@ The program uses the GraphStream library to visualize the graphs.
 ## Demonstration of DFS starting at Node6:
 ![DFS search](graphing/docs/DFS.gif)
 
-# Future plans
-## MUST-HAVE: allowing the user to delete nodes and edges
-## SHOULD-HAVE: create UNDO-REDO facility to keep track of the add and delete commands with the use of Command Design Patern, make two stacks: REDO - UNDO and allow the user to have the option of redoing - undoing of commands 
-## COULD-HAVE: Swing GUI instead of the CLI which is quite tedious to use or, a Java Android App with accounts for each user that would hold past graphs
+## Future plans
+#### MUST-HAVE: allowing the user to delete nodes and edges
+#### SHOULD-HAVE: create UNDO-REDO facility to keep track of the add and delete commands with the use of Command Design Patern, make two stacks: REDO - UNDO and allow the user to have the option of redoing - undoing of commands 
+#### COULD-HAVE: Swing GUI instead of the CLI which is quite tedious to use or, a Java Android App with accounts for each user that would hold past graphs
 
 
