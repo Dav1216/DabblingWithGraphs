@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author David Nistor
  */
-public class ClientCode implements ShortestPath, MST, BFS, DFS {
+public class ClientCode implements ShortestPath, MST, BFS, DFS, AddElement {
     private TheGraphModel theModel;
     private MyView theView;
 
@@ -99,6 +99,30 @@ public class ClientCode implements ShortestPath, MST, BFS, DFS {
         } else {
             System.out.println("Please press \"d\" and enter an existing node");
         }
+    }
+
+    /**
+     * Implements behaviour for when {@code this} is called as a {@code AddElement}
+     * callback by the {@code InputListener} class: adds a desired edge to the model.
+     *
+     * @param node1 the first node name id
+     * @param node2 the second node name id
+     * @param weight the desired weight of the edge
+     */
+    @Override
+    public void addEdge(String node1, String node2, Integer weight) {
+        theModel.addEdge(node1, node2, weight);
+        theView.myNotify();
+    }
+
+    /**
+     * Implements behaviour for when {@code this} is called as a {@code AddElement}
+     * callback by the {@code InputListener} class: adds a node to the model.
+     */
+    @Override
+    public void addNode() {
+        theModel.addNode();
+        theView.myNotify();
     }
 
     public static void main(String[] args) {

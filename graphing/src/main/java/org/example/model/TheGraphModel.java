@@ -22,12 +22,15 @@ import java.util.*;
 public class TheGraphModel {
     private Graph theGraph;
     private final Map<Node, NodeWrapper> mappingFunction;
+    private final AbstractTemplateGenerator generator;
+    private Map<Node, Map<Node, Integer>> adjacentNodes;
 
     /**
      * Constructs the {@code TheGraphModel} object.
      */
     public TheGraphModel() {
         mappingFunction = new HashMap<>();
+        generator = getGenerator();
         initializeTheModel();
     }
 
@@ -35,9 +38,9 @@ public class TheGraphModel {
      * Initializes {@code TheGraphModel} object.
      */
     private void initializeTheModel(){
-        AbstractTemplateGenerator generator = getGenerator();
+        //AbstractTemplateGenerator generator = getGenerator();
         theGraph = generator.generateGraph("TheGameGraph");
-        Map<Node, Map<Node, Integer>> adjacentNodes = generator.getEdgesEachNode();
+        adjacentNodes = generator.getEdgesEachNode();
 
         theGraph.nodes().forEach(node -> mappingFunction.put(node, new NodeWrapper(node)));
         theGraph.nodes().forEach(node -> {
@@ -126,6 +129,10 @@ public class TheGraphModel {
      * @return {@code shortestPath} the list of nodes in the shortest path
      */
     public List<Node> calculateShortestPath(Node source, Node target) {
+        theGraph.nodes().forEach(node -> {
+            myNode(node).setShortestPathToNode(new ArrayList<>());
+            myNode(node).setDistance(Integer.MAX_VALUE);
+        });
         calculateShortestFromSource(source);
 
         return getShortestPathToNode(target);
@@ -166,5 +173,37 @@ public class TheGraphModel {
         dfs.startDFS(node);
 
         return dfs.getAllPathsInDfs();
+    }
+
+    /**
+     * Adds edge to {@code theGraph}.
+     * @param node1 the first node of the edge
+     * @param node2 the second node of the edge
+     * @param weight the weight of the edge
+     */
+    public void addEdge(String node1, String node2, Integer weight) {
+        if(theGraph.getNode(node1) == null || theGraph.getNode(node2) == null) {
+            System.out.println("Some nodes may not exist in your edge");
+        }
+
+        String edgeName = "Edge" + node1 + node2;
+        if (theGraph.getEdge(edgeName) == null && theGraph.getEdge("Edge" + node2 + node1) == null) {
+            Edge theEdge = theGraph.addEdge(edgeName, node1, node2);
+            myNode(theGraph.getNode(node1)).addAdjacentNodes(myNode(theGraph.getNode(node2)), weight);
+            myNode(theGraph.getNode(node2)).addAdjacentNodes(myNode(theGraph.getNode(node1)), weight);
+            theEdge.setAttribute("weight", weight);
+            System.out.println("Successfully added " + edgeName);
+        } else {
+            System.out.println("This edge already exists");
+        }
+    }
+
+    /**
+     * Adds node to {@code theGraph}.
+     */
+    public void addNode() {
+        Node node = theGraph.addNode("Node" + theGraph.getNodeCount());
+        mappingFunction.put(node, new NodeWrapper(node));
+        System.out.println("Successfully added " + node.getId());
     }
 }

@@ -23,8 +23,8 @@ public class MyView {
      */
     public MyView(Graph theGraph) {
         this.theGraph = theGraph;
-        setNodeLabels(this.theGraph.nodes());
-        setEdgesLabels();
+        setNodeLabels(theGraph.nodes());
+        setEdgesLabels(theGraph.edges());
         startGUI();
     }
 
@@ -101,9 +101,9 @@ public class MyView {
     /**
      * Displays the weight labels of each edge in the {@code theGraph}.
      */
-    private void setEdgesLabels() {
-        theGraph.edges().forEach(edge -> {
-            edge.setAttribute("ui.label",edge.getAttribute("weight").toString());
+    private void setEdgesLabels(Stream<Edge> edges) {
+        edges.forEach(edge -> {
+            edge.setAttribute("ui.label", edge.getAttribute("weight").toString());
             edge.setAttribute("ui.style","text-alignment: center; " +
                     "text-padding: 10; text-size: 20;text-offset: 10px, 0px;");
         });
@@ -122,5 +122,14 @@ public class MyView {
                             " text-padding: 10; text-size: 20;text-offset: 20px, 0px;");
                 }
         );
+    }
+
+    /**
+     * This is called to refresh the view when new elements are added to the model.
+     */
+    public void myNotify() {
+        resetGraphAppearence();
+        setNodeLabels(theGraph.nodes());
+        setEdgesLabels(theGraph.edges());
     }
 }
