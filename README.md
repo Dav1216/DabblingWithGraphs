@@ -1,5 +1,5 @@
 # DabblingWithGraphs
-I made this Java program as an educational program that allows users to input commands in the command line interface (CLI) to generate and analyze graphs. The program offers two options: generating a random number of nodes graph or inputting a number of nodes. After selecting one of the options, the user can choose between computing the Minimum Spanning Tree (MST) of the graph, the shortest path between two input nodes using Dijkstra's algorithm, or to compute the BFS or DFS.
+I made this Java program as an educational program that allows users to input commands in the command line interface (CLI) to generate and analyze graphs. The program offers two options: generating a random number of nodes graph or inputting a number of nodes. After selecting one of the options, the user can choose between computing the Minimum Spanning Tree (MST) of the graph, the shortest path between two input nodes using Dijkstra's algorithm, or to compute the BFS or DFS. Also, the user can choose to add new nodes or to connect existing ones with weighted edges.
 
 The program uses the GraphStream library to visualize the graphs.
 
@@ -37,5 +37,10 @@ The program uses the GraphStream library to visualize the graphs.
 
 ## Demonstration of DFS starting at Node6:
 ![DFS search](graphing/docs/DFS.gif)
+
+## Future plans
+#### MUST-HAVE: allowing the user to delete nodes and edges
+#### SHOULD-HAVE: create UNDO-REDO facility to keep track of the add and delete commands with the use of Command Design Patern, make two stacks: REDO - UNDO and allow the user to have the option of redoing - undoing of commands 
+#### COULD-HAVE: Swing GUI instead of the CLI which is quite tedious to use or, a Java Android App with accounts for each user that would hold past graphs
 
 
