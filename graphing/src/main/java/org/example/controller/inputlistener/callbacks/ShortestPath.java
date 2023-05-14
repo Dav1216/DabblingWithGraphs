@@ -1,4 +1,4 @@
-package org.example.controller.inputlistener;
+package org.example.controller.inputlistener.callbacks;
 
 /**
  * Interface with callback method.

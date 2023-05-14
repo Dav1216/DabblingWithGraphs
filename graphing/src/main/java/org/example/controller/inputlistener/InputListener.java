@@ -1,5 +1,7 @@
 package org.example.controller.inputlistener;
 
+import org.example.controller.inputlistener.callbacks.*;
+
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

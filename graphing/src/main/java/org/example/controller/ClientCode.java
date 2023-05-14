@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import org.example.controller.inputlistener.*;
+import org.example.controller.inputlistener.callbacks.*;
 import org.example.model.TheGraphModel;
 import org.example.view.MyView;
 import org.graphstream.graph.Graph;
