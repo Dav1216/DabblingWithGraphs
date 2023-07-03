@@ -17,6 +17,7 @@ The program uses the GraphStream library to visualize the graphs.
 4. If analyzing shortest paths, enter two nodes to find the shortest path between them.
 5. If generating a BFS animation, enter the source node when prompted.
 6. If generating a DFS animation, enter the source node when prompted.
+7. If adding nodes or edges between nodes follow the instructions as prompted.
 
 # Design Patterns Used
 * Template Method: The AbstractTemplateGenerator class defines the overall structure of the graph generation algorithm and delegates getSizeOfGraph hook method to be implemented by the subclasses.
