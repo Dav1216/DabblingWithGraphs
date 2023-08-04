@@ -177,6 +177,7 @@ public class TheGraphModel {
 
     /**
      * Adds edge to {@code theGraph}.
+     *
      * @param node1 the first node of the edge
      * @param node2 the second node of the edge
      * @param weight the weight of the edge
